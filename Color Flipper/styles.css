@@ -155,32 +155,14 @@ h1, h2, h3, h4 {
   }
   /*  global classes */
 
-/* section */
-.section {
-    padding: 5rem 0;
-  }
-  
-  .section-center {
-    width: 90vw;
-    margin: 0 auto;
-    max-width: 1170px;
-  }
-  @media screen and (min-width: 992px) {
-    .section-center {
-      width: 95vw;
-    }
-  }
+
   main {
     min-height: 100vh;
     display: grid;
     place-items: center;
   }
   
-  /*
-  =============== 
-  Nav
-  ===============
-  */
+/*      NAVIGATION BAR   */
   nav {
     background: var(--clr-white);
     height: 3rem;
