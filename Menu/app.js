@@ -82,24 +82,13 @@ const menu = [
   },
 ];
 
-//  Adding buttons dynamically
-const categories = menu.reduce((values,item)=> {
-
-  if (!values.includes(item.category))
-  {
-    values.push(item.category);
-  }
-  return values
-
-},['all']);
-
 const sectionCenter = document.querySelector('.section-center');
 const btnContainer = document.querySelector('.btn-container');
 
 //  Wait for the page to load
 window.addEventListener('DOMContentLoaded',()=> {
-  displayFilterBtns(categories);
-  displayMenuItems(menu);
+  displayFilterBtns();  //Function to display btns dynamically
+  displayMenuItems(menu);  // Function to display menu items dynamically
 });
 
 
@@ -131,36 +120,55 @@ function displayMenuItems(menuItems)
     })
   
     displayMenu = displayMenu.join('');
+
     sectionCenter.innerHTML = displayMenu;
 }
 
-function displayFilterBtns(itemCategories)
+
+//  Function to display Filter Btns
+function displayFilterBtns()
 {
-  let displayBtns = itemCategories.map((category)=> {
+    //  Getting Unique Categories for our buttons
+  const categories = menu.reduce((values,item)=> {
+
+    if (!values.includes(item.category))
+    {
+      values.push(item.category);
+    }
+    return values
+
+  },['all']);
+
+  
+  let displayBtns = categories.map((category)=> {
     return `<button class="filter-btn" type="button" data-id="${category}">${category}</button>`;
   })
   displayBtns = displayBtns.join('');
-  btnContainer.innerHTML = displayBtns;
-  const filterBtns = btnContainer.querySelectorAll('.filter-btn');
-  //  Event listener for the btns
-filterBtns.forEach((btn)=> {
-  btn.addEventListener('click',(e)=>{
-    const category = e.currentTarget.dataset.id;
-    const menuCategory = menu.filter((menuItem)=> {
-      if (menuItem.category == category)
-      {
-        return menuItem;
-      }
-    });
 
-    if(category == 'all')
+  btnContainer.innerHTML = displayBtns;
+
+  const filterBtns = btnContainer.querySelectorAll('.filter-btn');
+
+  //  Event listener for the btns
+  filterBtns.forEach((btn)=> {
+    btn.addEventListener('click',(e)=>{
+      const category = e.currentTarget.dataset.id;
+
+      const menuCategory = menu.filter((menuItem)=> {
+        if (menuItem.category == category)
+        {
+          return menuItem;
+        }
+      });
+
+      if(category == 'all')
+        {
+          displayMenuItems(menu);
+        }
+      else
       {
-        displayMenuItems(menu);
+        displayMenuItems(menuCategory);
       }
-    else
-    {
-      displayMenuItems(menuCategory);
-    }
+    })
   })
-})
 }
