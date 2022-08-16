@@ -224,11 +224,14 @@ nav {
   justify-content: space-between;
 }
 .nav-toggle {
-  font-size: 1.5rem;
-  color: var(--clr-grey-1);
-  background: transparent;
-  border-color: transparent;
-  transition: var(--transition);
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: var(--clr-primary-4);
+  color: var(--clr-white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--radius);
   cursor: pointer;
 }
 .nav-toggle:hover {
@@ -387,14 +390,3 @@ footer p {
   }
 }
 
-/* temporary button */
-.temp-btn {
-  width: 2.5rem;
-  height: 2.5rem;
-  background-color: var(--clr-primary-4);
-  color: var(--clr-white);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: var(--radius);
-}
