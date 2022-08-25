@@ -25,7 +25,7 @@ const random = Math.floor(Math.random() * text.length);
 
 
 form.addEventListener('submit',(e) => {
-  
+  copy.textContent = "Copy";
   // Get the user's value
   const value = parseInt(amount.value);
   
@@ -58,7 +58,7 @@ form.addEventListener('submit',(e) => {
   copy.addEventListener('click',() =>{
 
     navigator.clipboard.writeText(clipText);
-    alert("Copied");
+    copy.textContent = "Copied";
   })
 
 //  Format the text to be copied in the clip board
