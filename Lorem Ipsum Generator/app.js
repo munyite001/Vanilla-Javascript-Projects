@@ -16,21 +16,22 @@ I just told you! You've killed me! Fry! Quit doing the right thing, you jerk! Mi
 
 //  Get the user input
 const form = document.querySelector('.lorem-form');
-const amount = document.getElementById('amount').value;
+const amount = document.getElementById('amount');
 const result = document.querySelector('.lorem-text');
 const copy = document.getElementById('copy');
-const generate = document.getElementById('generate');
-const value = parseInt(amount);
+
+//  Generate a random number
 const random = Math.floor(Math.random() * text.length);
 
 
 form.addEventListener('submit',(e) => {
-
+  
+  // Get the user's value
+  const value = parseInt(amount.value);
+  
   //  Prevent the default behaviour of the form
   e.preventDefault();
-  //empty
-  //-1
-  // > 9
+  
   if (isNaN(value) || value <= 0 || value > 9)
   {
     result.innerHTML = `<p class='result'>${text[random]}</p>`;
@@ -46,19 +47,19 @@ form.addEventListener('submit',(e) => {
     }).join('');
     result.innerHTML = tempText;
 
-    //  Copy the text to the clipboard
-  copy.addEventListener('click',() =>{
-
-    navigator.clipboard.writeText(clipText);
-    alert("Copied");
-  })
+  
   }
 
 
 })
 
 
+  //  Copy button : copy the generated text to the clipboard
+  copy.addEventListener('click',() =>{
 
+    navigator.clipboard.writeText(clipText);
+    alert("Copied");
+  })
 
 //  Format the text to be copied in the clip board
 function formatText(arr)
