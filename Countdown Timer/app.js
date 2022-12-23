@@ -28,8 +28,18 @@ const deadline = document.querySelector('.deadline');
 const items = document.querySelectorAll('.deadline-format h4');
 const giveawayImage = document.querySelector('.giveaway-img');
 
+
+//  Set up temporary dates
+let tempDate = new Date();
+let tempYear = tempDate.getFullYear();
+let tempMonth = tempDate.getMonth();
+let temDay = tempDate.getDate();
+let tempHour = tempDate.getHours();
+let tempMin = tempDate.getMinutes();
+
 //  Set up the date when the giveaway will end
-const endDate = new Date(2022, 11, 23, 17, 18, 00);
+//  Format of giveaway date => year || month || date || hours || minutes || seconds
+const endDate = new Date(tempYear, tempMonth, temDay, tempHour, tempMin + 5, 00);
 
 // specifics
 const year = endDate.getFullYear();
@@ -41,7 +51,7 @@ const minutes = endDate.getMinutes();
 
 let x = hour > 12 ? 'pm':'am';
 
-giveaway.innerHTML = `giveawy will end on ${day} ${month} ${date} ${hour}:${minutes}${x}`
+giveaway.innerHTML = `giveaway will end on ${day} ${month} ${date} ${hour}:${minutes}${x}`
 
 //  Get end date in milliseconds which will help us to calculate remaining time
 const endTime = endDate.getTime();
