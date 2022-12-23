@@ -22,82 +22,82 @@ const weekdays = [
   "Saturday",
 ];
 
+//  Grab the necessary Elements from HTML
 const giveaway = document.querySelector('.giveaway');
 const deadline = document.querySelector('.deadline');
 const items = document.querySelectorAll('.deadline-format h4');
 
+//  Set up the date when the giveaway will end
+const endDate = new Date(2022, 11, 23, 17, 11, 59);
 
-//  Temporary Dates for the countdown timer
-let tempDate = new Date();
-let tempYear = tempDate.getFullYear();
-let tempMonth = tempDate.getMonth();
-let tempDay = tempDate.getDay();
+// specifics
+const year = endDate.getFullYear();
+const month = months[endDate.getMonth()];
+const day = weekdays[endDate.getDay()];
+const date = endDate.getDate();
+const hour = endDate.getHours();
+const minutes = endDate.getMinutes();
 
-let futureDate = new Date(tempYear,tempMonth+1,tempDay + 10, 11, 30);
+let x = hour > 12 ? 'pm':'am';
 
-//  Getting the actual future day
-const year = futureDate.getFullYear();
-const month = months[futureDate.getMonth()];
-const date = futureDate.getDate();
-const day = weekdays[futureDate.getDay()];
-const hours = futureDate.getHours();
-const mins = futureDate.getMinutes();
-const secs = futureDate.getSeconds();
+giveaway.innerHTML = `giveawy will end on ${day} ${month} ${date} ${hour}:${minutes}${x}`
 
+//  Get end date in milliseconds which will help us to calculate remaining time
+const endTime = endDate.getTime();
 
-giveaway.textContent = `Give away ends on ${day}, ${date} ${month} ${year}, ${hours}:${mins} am`;
+//  Function to calculate Remaining Time
+let getRemainingTime = () => {
+  //  Get current time in ms then deduct from end time to get remaining time in ms
+  const currentTime = new Date().getTime();
+  let rTime = endTime - currentTime;
 
-//  Future time in milliseconds
-const futureTime = futureDate.getTime();
-
-
-
-function getRemainingTime()
-{
-    const today = new Date().getTime();
-    const remainingTime = futureTime - today;
-    //  1 sec = 1000ms
-    //  1 min = 60 sec
-    //  1 hour = 60min
-    //  1 day = 24 hours
-
-    //  values in ms
+  //  Milliseconds conversion chart
+  /*
+    1s = 1000ms
+    1min = 60s
+    1hour = 60min
+    1day = 24hrs
+  */
+  
     const oneDay = 24 * 60 * 60 * 1000;
-    const oneHour = 60 * 60 * 1000;
-    const oneMin = 60 * 1000;
+    const oneHour = 60* 60 * 1000;
+    const oneMinute = 60 * 1000;
+    const oneSecond = 1000;
 
-    let days = Math.floor(remainingTime/oneDay);
-    let hours = Math.floor((remainingTime % oneDay) / oneHour);
-    let mins = Math.floor((remainingTime % oneHour) / oneMin);
-    let secs = Math.floor((remainingTime % oneMin) / 1000);
+  //  Get actual days, hours, minutes and seconds remaining in milliseconds
+  const rDays = Math.floor(rTime / oneDay);
+  const rHours = Math.floor((rTime % oneDay) / oneHour);
+  const rMins = Math.floor((rTime % oneHour) / oneMinute);
+  const rSecs = Math.floor((rTime % oneMinute) / oneSecond);
 
-    const values = [days, hours, mins, secs];
+  const values = [rDays, rHours, rMins, rSecs];
 
-    function format(item)
+
+  //  Function to format remaining time where time is less than 10
+  function format(item)
+  {
+    if (item < 10)
     {
-      if (item < 10)
-      {
-        return `0${item}`
-      }
-      return item;
+      return (`0${item}`)
     }
-
-    //  Set the values
-    items.forEach((item,index) => {
-      item.innerHTML = format(values[index]);
-    })
-
-    console.log(remainingTime);
-
-    if(remainingTime < 0)
+    else
     {
-      clearInterval(countDown);
-
-      deadline.innerHTML = "<h4 class='expired'>Sorry, the giveaway has ended !</h4>"
+      return (item);
     }
+  }
+
+  items.forEach((item, index) => {
+    item.innerHTML = format(values[index]);
+  });
+
+  //  If time expires then ...
+  if (rTime < 0)
+  {
+    clearInterval(countDown);
+    deadline.innerHTML = `<h4 class="expired">Sorry this giveaway has expired!</h4>`
+  }
 }
 
-//  Countdown
-let countDown = setInterval(getRemainingTime,1000);
-
+//  Countdown interval
+let countDown = setInterval(getRemainingTime, 1000); 
 getRemainingTime();
