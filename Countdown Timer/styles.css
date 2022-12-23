@@ -37,6 +37,7 @@ Variables
   --clr-grey-8: hsl(210, 31%, 80%);
   --clr-grey-9: hsl(212, 33%, 89%);
   --clr-grey-10: hsl(210, 36%, 96%);
+  --clr-grey-11: hsl(0, 0%, 83%);
   --clr-white: #fff;
   --clr-red-dark: hsl(360, 67%, 44%);
   --clr-red-light: hsl(360, 71%, 66%);
@@ -166,6 +167,11 @@ Countdown Timer
 
 .gift-img {
   margin-bottom: 2rem;
+  background-color: var(--clr-grey-11);
+}
+
+.exp-img {
+  opacity: 0.5;
 }
 
 .gift-info h3 {

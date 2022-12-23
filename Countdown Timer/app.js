@@ -26,9 +26,10 @@ const weekdays = [
 const giveaway = document.querySelector('.giveaway');
 const deadline = document.querySelector('.deadline');
 const items = document.querySelectorAll('.deadline-format h4');
+const giveawayImage = document.querySelector('.giveaway-img');
 
 //  Set up the date when the giveaway will end
-const endDate = new Date(2022, 11, 23, 17, 11, 59);
+const endDate = new Date(2022, 11, 23, 17, 18, 00);
 
 // specifics
 const year = endDate.getFullYear();
@@ -94,7 +95,8 @@ let getRemainingTime = () => {
   if (rTime < 0)
   {
     clearInterval(countDown);
-    deadline.innerHTML = `<h4 class="expired">Sorry this giveaway has expired!</h4>`
+    deadline.innerHTML = `<h4 class="expired">Sorry this giveaway has expired!</h4>`;
+    giveawayImage.classList.add('exp-img');
   }
 }
 
